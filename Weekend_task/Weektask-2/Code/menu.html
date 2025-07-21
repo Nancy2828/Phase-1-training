@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Menu - FoodEase</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body { background-color: #fdfdfd; }
+    header {
+      background-color: #ff5722;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 { font-size: 1.5rem; }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: bold;
+    }
+    .menu-container {
+      max-width: 1100px;
+      margin: 2rem auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      padding: 0 1rem;
+    }
+    .menu-card {
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 1rem;
+      transition: transform 0.2s ease;
+    }
+    .menu-card:hover { transform: translateY(-5px); }
+    .menu-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+    .menu-title {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: #333;
+    }
+    .menu-desc {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 1rem;
+    }
+    .btn {
+      padding: 0.4rem 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .btn-add {
+      background-color: #ff5722;
+      color: white;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #ff5722;
+      color: white;
+      margin-top: 3rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>FoodEase Menu</h1>
+    <nav>
+      <a href="menu.html">Menu</a>
+      <a id="cartLink" href="cart.html">Cart</a>
+      <a href="login.html">Logout</a>
+      <a href="order.html">Orders</a>
+    </nav>
+  </header>
+
+  <div class="menu-container">
+   
+    <div class="menu-card">
+      <img src="img/briyani.jpg" alt="Mutton Briyani">
+      <div class="menu-title">Mutton Briyani</div>
+      <div class="menu-desc">Traditional South Indian style mutton biryani.</div>
+      <div class="menu-title">₹150</div>
+      <button class="btn btn-add" onclick="addToCart('Mutton Briyani', 150)">Add to Cart</button>
+    </div>
+    <div class="menu-card">
+      <img src="img/chicken_rice.jpg" alt="Chicken Rice">
+      <div class="menu-title">Chicken Rice</div>
+      <div class="menu-desc">Flavored rice served with spicy chicken gravy.</div>
+      <div class="menu-title">₹140</div>
+      <button class="btn btn-add" onclick="addToCart('Chicken Rice', 140)">Add to Cart</button>
+    </div>
+    <div class="menu-card">
+      <img src="img/dosa.jpg" alt="Dosa">
+      <div class="menu-title">Dosa</div>
+      <div class="menu-desc">Dosa</div>
+      <div class="menu-title">₹70</div>
+      <button class="btn btn-add" onclick="addToCart('Dosa', 70)">Add to Cart</button>
+    </div>
+    <div class="menu-card">
+      <img src="img/noddles.jpg" alt="Noodles">
+      <div class="menu-title">Noodles</div>
+      <div class="menu-desc">Spicy fried noodles with vegetables and sauces.</div>
+      <div class="menu-title">₹120</div>
+      <button class="btn btn-add" onclick="addToCart('Noodles', 120)">Add to Cart</button>
+    </div>
+    <div class="menu-card">
+      <img src="img/parota.jpg" alt="Parota">
+      <div class="menu-title">Parota</div>
+      <div class="menu-desc">Flaky layered flatbread served with kurma.</div>
+      <div class="menu-title">₹50</div>
+      <button class="btn btn-add" onclick="addToCart('Parota', 50)">Add to Cart</button>
+    </div>
+    <div class="menu-card">
+      <img src="img/parota.jpg" alt="Grill Chicken">
+      <div class="menu-title">Grill Chicken</div>
+      <div class="menu-desc">Juicy grilled chicken marinated with spices.</div>
+      <div class="menu-title">₹180</div>
+      <button class="btn btn-add" onclick="addToCart('Grill Chicken', 180)">Add to Cart</button>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 FoodEase. All rights reserved.
+  </footer>
+
+  <script>
+  function addToCart(name, price) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    const existingItem = cart.find(item => item.name === name);
+    if (existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      cart.push({ name, price, quantity: 1 });
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert(`✅ ${name} added to cart!`);
+  }
+</script>
+
+</body>
+</html>
