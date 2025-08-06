@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Register - ShopEase</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: url('img/bg.jpg') center center/cover no-repeat;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    h4 {
+      text-align: center;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 0.4rem;
+      font-weight: bold;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 1rem;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 0.6rem;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #388e3c;
+    }
+
+    #errorMsg {
+      color: red;
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h4>Register</h4>
+
+    <form id="registerForm">
+      <label class="form-label">User ID</label>
+      <input type="text" class="form-control" id="userid" required />
+
+      <label class="form-label">Name</label>
+      <input type="text" class="form-control" id="name" required />
+
+      <label class="form-label">Address</label>
+      <input type="text" class="form-control" id="address" required />
+
+      <label class="form-label">Contact Number</label>
+      <input type="tel" class="form-control" id="contact" required minlength="10"/>
+
+      <label class="form-label">Password</label>
+      <input type="password" class="form-control" id="password" required />
+
+      <div id="errorMsg" style="display: none;"></div>
+
+      <button type="submit" class="btn">Register</button>
+    </form>
+  </div>
+
+  <script>
+  const registerForm = document.getElementById("registerForm");
+  const errorMsg = document.getElementById("errorMsg");
+
+  function isValidPassword(password) {
+
+    const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/;
+    return regex.test(password);
+  }
+
+  registerForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const userid = document.getElementById("userid").value.trim();
+    const name = document.getElementById("name").value.trim();
+    const address = document.getElementById("address").value.trim();
+    const contact = document.getElementById("contact").value.trim();
+    const password = document.getElementById("password").value;
+
+   
+    if (!userid || !name || !address || !contact || !password) {
+      errorMsg.innerText = "All fields are required.";
+      errorMsg.style.display = "block";
+      return;
+    }
+
+   
+    if (!isValidPassword(password)) {
+      errorMsg.innerText = "Password must be at least 8 characters and contain 1 uppercase letter, 1 number, and 1 special character.";
+      errorMsg.style.display = "block";
+      return;
+    }
+
+
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    if (users.find(u => u.userid === userid)) {
+      errorMsg.innerText = "User ID already exists.";
+      errorMsg.style.display = "block";
+      return;
+    }
+
+    users.push({ userid, name, address, contact, password });
+    localStorage.setItem("users", JSON.stringify(users));
+
+    alert("✅ Registered successfully. You can now log in.");
+    window.location.href = "login.html";
+  });
+</script>
+</body>
+</html>
