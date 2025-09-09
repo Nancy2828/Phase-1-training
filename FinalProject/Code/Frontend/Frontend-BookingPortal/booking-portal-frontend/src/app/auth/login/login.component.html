@@ -1,0 +1,76 @@
+<div class="login-container d-flex vh-100">
+<div class="toast-top-center-wrapper">
+  <div
+    class="toast align-items-center text-bg-primary border-0"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+    [class.show]="showToast"
+  >
+    <div class="d-flex">
+      <div class="toast-body">
+        Login Successful!
+      </div>
+      <button
+        type="button"
+        class="btn-close btn-close-white me-2 m-auto"
+        (click)="showToast = false"
+      ></button>
+    </div>
+  </div>
+</div>
+  <!-- Left side: background image -->
+  <div class="login-image d-none d-md-block"></div>
+
+  <!-- Right side: form -->
+  <div class="d-flex justify-content-center align-items-center flex-grow-1">
+    <div class="card shadow-lg p-4 login-card">
+      <div class="text-center mb-4">
+       
+        <h3 class="text-primary">MARY'S HOSPITAL</h3>
+        <p class="text-muted">Login to book your appointment</p>
+      </div>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input
+            type="text"
+            id="username"
+            formControlName="username"
+            class="form-control"
+            placeholder="Enter username"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            type="password"
+            id="password"
+            formControlName="password"
+            class="form-control"
+            placeholder="Enter password"
+          />
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100 mb-3">
+          Login
+        </button>
+      </form>
+
+      <div class="d-grid gap-2">
+        <button class="btn btn-outline-secondary" (click)="openRegistration()">
+          New Registration
+        </button>
+        <button class="btn btn-outline-primary" (click)="DcRegistration()">
+          Register as Doctor
+        </button>
+      </div>
+
+      <div *ngIf="error" class="text-danger mt-3 text-center">
+        {{ error }}
+      </div>
+    </div>
+  </div>
+</div>

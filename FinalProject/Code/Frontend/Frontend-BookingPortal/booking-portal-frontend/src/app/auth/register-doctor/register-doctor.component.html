@@ -1,0 +1,68 @@
+<div class="register-container">
+  <h2 class="text-primary mb-4">Register Doctor</h2>
+
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="card p-4 shadow-sm rounded-4">
+
+    <!-- Username -->
+    <div class="mb-3">
+      <input type="text" formControlName="username" placeholder="Username" class="form-control" />
+      <div *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched"
+        class="text-danger mt-1">
+        <small *ngIf="registerForm.get('username')?.errors?.['required']">Username is required</small>
+        <small *ngIf="registerForm.get('username')?.errors?.['minlength']">Minimum 3 characters</small>
+        <small *ngIf="registerForm.get('username')?.errors?.['maxlength']">Maximum 25 characters</small>
+      </div>
+    </div>
+
+    <!-- Password -->
+    <div class="mb-3">
+      <input type="password" formControlName="password" placeholder="Password" class="form-control" />
+      <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
+        class="text-danger mt-1">
+        <small *ngIf="registerForm.get('password')?.errors?.['required']">Password is required</small>
+        <small *ngIf="registerForm.get('password')?.errors?.['minlength']">Minimum 8 characters</small>
+        <small *ngIf="registerForm.get('password')?.errors?.['pattern']">
+          Must include uppercase, lowercase, number & special character
+        </small>
+      </div>
+    </div>
+
+    <!-- Specialization -->
+    <div class="mb-3">
+      <input type="text" formControlName="specialization" placeholder="Specialization" class="form-control" />
+      <div *ngIf="registerForm.get('specialization')?.invalid && registerForm.get('specialization')?.touched"
+        class="text-danger mt-1">
+        <small *ngIf="registerForm.get('specialization')?.errors?.['required']">Specialization is required</small>
+      </div>
+    </div>
+
+    <!-- Fees -->
+    <div class="mb-3">
+      <input type="number" formControlName="fees" placeholder="Fees" class="form-control" min="0"/>
+      <div *ngIf="registerForm.get('fees')?.invalid && registerForm.get('fees')?.touched" class="text-danger mt-1">
+        <small *ngIf="registerForm.get('fees')?.errors?.['required']">Fees is required</small>
+        <small *ngIf="registerForm.get('fees')?.errors?.['min']">Minimum value is 0</small>
+      </div>
+    </div>
+
+    <!-- Experience -->
+    <div class="mb-3">
+      <input type="number" formControlName="experience" placeholder="Experience (Years)" class="form-control" min="0" />
+
+      <div *ngIf="registerForm.get('experience')?.invalid && registerForm.get('experience')?.touched"
+        class="text-danger mt-1">
+        <small *ngIf="registerForm.get('experience')?.errors?.['required']">Experience is required</small>
+        <small *ngIf="registerForm.get('experience')?.errors?.['min']">Minimum is 1 year</small>
+        <small *ngIf="registerForm.get('experience')?.errors?.['max']">Maximum is 50 years</small>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary w-100">Register</button>
+
+    <!-- Success / Error Messages -->
+    <div *ngIf="success" class="alert alert-success mt-3">{{ success }}</div>
+    <div *ngIf="error" class="alert alert-danger mt-3">{{ error }}</div>
+
+  </form>
+</div>

@@ -1,0 +1,20 @@
+.register-container {
+  max-width: 500px;
+  margin: 30px auto;
+}
+
+.form-control,
+.form-select,
+textarea {
+  border-radius: 0.5rem;
+}
+
+button.btn {
+  border-radius: 0.5rem;
+  padding: 0.6rem;
+  font-weight: 500;
+}
+
+.text-danger small {
+  display: block;
+}

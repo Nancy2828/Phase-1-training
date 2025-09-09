@@ -1,0 +1,43 @@
+/* Container split screen */
+.login-container {
+  background: #f8f9fa;
+}
+
+/* Left side image */
+.login-image {
+  flex: 1;
+  background: url("https://img.freepik.com/free-photo/medical-banner-with-stethoscope_23-2149611199.jpg")
+    no-repeat center center;
+  background-size: cover;
+}
+
+/* Login card */
+.login-card {
+  width: 100%;
+  max-width: 380px;
+  border-radius: 16px;
+  background: #ffffff;
+}
+
+/* Logo */
+.logo {
+  width: 60px;
+  height: 60px;
+}
+.toast-top-center-wrapper {
+  position: fixed;
+  top: 1rem; /* distance from top */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1050;
+}
+
+/* Optional fade animation */
+.toast {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.toast.show {
+  opacity: 1;
+}

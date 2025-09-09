@@ -1,0 +1,112 @@
+<p class="fw-bold fs-4 text-primary mb-4">Doctor Dashboard</p>
+
+<!-- Appointment Section -->
+<div class="mb-5">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h5 class="fw-semibold text-dark">Appointments</h5>
+   
+  </div>
+
+  <div *ngIf="showAppointments" class="table-responsive">
+    <table class="table align-middle table-hover">
+      <thead class="bg-light">
+        <tr>
+          <!-- <th>Doctor</th> -->
+          <th>Patient</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let app of appointments" class="shadow-sm">
+          <!-- <td class="fw-semibold">{{ app.doctorName }}</td> -->
+          <td>{{ app.patientName }}</td>
+          <td>{{ app.appointmentDate | date:'short' }}</td>
+          <td>
+            <select
+              class="form-select form-select-sm border-0 shadow-sm"
+              [value]="app.status"
+              (change)="onStatusChange($event, app)"
+            >
+              <option value="Pending">Pending</option>
+              <option value="Approved">Approved</option>
+              <option value="Cancelled">Cancelled</option>
+              <option value="Rescheduled">Rescheduled</option>
+            </select>
+          </td>
+          <td>{{ app.notes }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Reschedule Modal -->
+<div class="modal-overlay" *ngIf="showRescheduleModal">
+  <div class="modal-content shadow-lg p-4 rounded-4">
+    <h4 class="mb-3 text-primary">Reschedule Appointment</h4>
+
+    <label for="newDate" class="form-label">Select Date & Time:</label>
+    <input
+      type="datetime-local"
+      id="newDate"
+      class="form-control mb-4 shadow-sm"
+      [(ngModel)]="newAppointmentDate"
+    />
+
+    <div class="d-flex justify-content-end gap-3">
+      <button class="btn btn-success px-4" (click)="confirmReschedule()">Submit</button>
+      <button class="btn btn-outline-secondary px-4" (click)="closeRescheduleModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Patients Section -->
+<div>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h5 class="fw-semibold text-dark">My Patients Medical History</h5>
+    <button class="btn btn-primary px-4" (click)="loadMyAppointments()">
+      'Show  My Appointments'
+    </button>
+  </div>
+
+  <div *ngIf="showAppointmentsTable" class="table-responsive">
+    <table class="table align-middle table-hover">
+      <thead class="bg-light">
+        <tr>
+          <th>Patient</th>
+          <th>Age</th>
+          <th>Gender</th>
+          <th>Total Appointments</th>
+          <th>Appointment History</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let patient of patientsWithAppointments" class="shadow-sm">
+          <td class="fw-semibold">{{ patient.username }}</td>
+          <td>{{ patient.age }}</td>
+          <td>{{ patient.gender }}</td>
+          <td>
+            <span class="badge bg-primary rounded-pill px-3 py-2">
+              {{ patient.appointments.length }}
+            </span>
+          </td>
+          <td>
+            <div class="d-flex flex-wrap gap-2">
+              <span
+                *ngFor="let appt of patient.appointments"
+                class="badge bg-light text-dark border shadow-sm"
+              >
+                📅 {{ appt.appointmentDate | date:'short' }}
+              </span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Error message -->
+<p *ngIf="error" class="text-danger mt-3">{{ error }}</p>

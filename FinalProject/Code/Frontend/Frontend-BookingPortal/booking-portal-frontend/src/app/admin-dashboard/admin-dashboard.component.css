@@ -1,0 +1,33 @@
+.admin-hero {
+  background: linear-gradient(135deg, #007bff, #6610f2);
+  border-radius: 1rem;
+}
+
+.hero-bg {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: url('https://images.unsplash.com/photo-1588776814546-12f3c5e0f9d2?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+  opacity: 0.1;
+  border-radius: 1rem;
+  z-index: 0;
+}
+.admin-hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+.graph-container {
+  background-color: rgba(255, 255, 255, 0.95);
+}
+
+.table th, .table td {
+  vertical-align: middle;
+}
+
+.btn {
+  transition: transform 0.2s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
